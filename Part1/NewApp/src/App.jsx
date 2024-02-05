@@ -8,6 +8,11 @@ const Button = ({text, onClick}) => {
   )
 }
 
+const copy = ({votes, index}) => {
+  const newArr = {...votes}
+  newArr[index]++
+  return newArr
+}
 
 const App = () => {
   const anecdotes = [
@@ -23,10 +28,16 @@ const App = () => {
   const randomIndex = () => {
     return (Math.floor(Math.random() * anecdotes.length))
   }
+  const [votes, setVote] = useState(Array(8).fill(0))
   const [selected, setSelected] = useState(randomIndex)
   return (
     <div>
-      {anecdotes[selected]}
+      {anecdotes[selected]} has {votes[selected]} votes
+      <Button text="vote" onClick={() => {
+        const copy = [...votes]
+        copy[selected]++
+        setVote(copy)
+      }} />
       <Button text= "next anecdote" onClick={() => setSelected(randomIndex)}/>
     </div>
   )
