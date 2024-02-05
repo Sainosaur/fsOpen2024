@@ -14,6 +14,24 @@ const copy = ({votes, index}) => {
   return newArr
 }
 
+const MostVote = ({content, anecdotes}) => {
+  let index = null
+  let maxVote = 0
+  for (let i = 0; i < content.length; i++) {
+    let vote = content[i]
+    if (vote > maxVote) {
+      index = i
+      maxVote = vote
+    }
+  }
+  content[index]
+  return (
+    <>
+     <p>{anecdotes[index]} has {maxVote} votes </p>
+    </>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -39,6 +57,8 @@ const App = () => {
         setVote(copy)
       }} />
       <Button text= "next anecdote" onClick={() => setSelected(randomIndex)}/>
+      <h2>Anecdote with most votes</h2>
+      <MostVote content= {votes} anecdotes={anecdotes}/>
     </div>
   )
 }
