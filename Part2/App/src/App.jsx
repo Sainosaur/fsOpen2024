@@ -1,18 +1,22 @@
 import { Component, useState } from 'react'
 
-const Course = ({course, id}) => {
+const Course = ({course}) => {
   const partsList = course.parts
-  console.log(partsList)
+  let excCount = 0
+  for (let part = 0; part < partsList.length; part++) {
+    excCount += partsList[part].exercises
+  }
   return (
     <>
     <h1>{course.name}</h1>
     <div>
       <ul>
         {partsList.map(part => <li key={part.id}>
-          {part.name} {part.exercises}
+          {part.name} {part.exercises} 
         </li>)}
       </ul>
     </div>
+    <h3>Total of {excCount} exercises</h3>
     </>
   )
 }
@@ -40,7 +44,7 @@ const App = () => {
       ]
     }
   
-    return <Course course={course} id= {1} />
+    return <Course course={course} />
   }
   
   export default App
