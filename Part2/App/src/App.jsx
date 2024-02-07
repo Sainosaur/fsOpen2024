@@ -2,10 +2,7 @@ import { Component, useState } from 'react'
 
 const Course = ({course}) => {
   const partsList = course.parts
-  let excCount = 0
-  for (let part = 0; part < partsList.length; part++) {
-    excCount += partsList[part].exercises
-  }
+  const excCount = course.parts.reduce((s,p) => s + p.exercises, 0)
   return (
     <>
     <h1>{course.name}</h1>
