@@ -5,16 +5,21 @@ const App = () => {
     { name: 'Arto Hellas' }
   ]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   const updateName = (event) => {
     setNewName(event.target.value)
+  }
+  const updateNumber = (event) => {
+    setNewNumber(event.target.value)
   }
 
   const newPerson = (event) => {
     event.preventDefault()
     let duplicate = false
     let person = {
-      name: newName
+      name: newName,
+      number : newNumber
     }
     persons.forEach(human => {
       if (human.name == person.name) {
@@ -35,12 +40,15 @@ const App = () => {
           name: <input value={newName} onChange={updateName}/>
         </div>
         <div>
+          number: <input value={newNumber} onChange={updateNumber}/>
+        </div>
+        <div>
           <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
       <div>
-        {persons.map(person => <p key={person.name}>{person.name}</p>)}
+        {persons.map(person => <p key={person.name}>{person.name}  {person.number} </p>)}
       </div>
     </div>
   )
