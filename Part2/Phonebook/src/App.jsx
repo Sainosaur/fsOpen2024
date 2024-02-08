@@ -6,12 +6,24 @@ const App = () => {
   ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [search, setSearch] = useState('')
 
   const updateName = (event) => {
     setNewName(event.target.value)
   }
   const updateNumber = (event) => {
     setNewNumber(event.target.value)
+  }
+  const updateSearch = (event) => {
+    setSearch(event.target.value)
+  }
+
+  const searchResults = (Arr) => {
+    return (
+      <>
+        {Arr.map(person => <p key={person.name}> {person.name} {person.number}</p>)}
+      </>
+    )
   }
 
   const newPerson = (event) => {
@@ -35,7 +47,11 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+        Search: <input value={search} onChange={updateSearch}/>
+      </div>
       <form onSubmit={newPerson}>
+        <h2>Add a new contact:</h2>
         <div>
           name: <input value={newName} onChange={updateName}/>
         </div>
@@ -48,7 +64,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <div>
-        {persons.map(person => <p key={person.name}>{person.name}  {person.number} </p>)}
+        {searchResults(persons.filter(person => person.name.toUpperCase().includes(search.toUpperCase())))}
       </div>
     </div>
   )
