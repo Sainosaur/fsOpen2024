@@ -12,11 +12,19 @@ const App = () => {
 
   const newPerson = (event) => {
     event.preventDefault()
+    let duplicate = false
     let person = {
       name: newName
     }
-    setPersons(persons.concat(person))
-    setNewName('')
+    persons.forEach(human => {
+      if (human.name == person.name) {
+        alert(`${person.name} has already been added to the phonebook`)
+        duplicate = true
+      }
+    })
+    if (!duplicate) {
+      setPersons(persons.concat(person))
+    }
   }
 
   return (
