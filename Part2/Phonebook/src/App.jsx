@@ -1,10 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Form from './Form'
 import Search from './Search'
+import axios from 'axios'
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas' }
   ]) 
+  const hook = () => {
+    axios.get("http://localhost:3001/persons").then(ref =>{
+      console.log("Data Accquired")
+      setPersons(ref.data)
+      console.log(`Persons data set to list of ${ref.data.length}`)
+    })
+  }
+  useEffect(hook, [])
 
   return (
     <div>
