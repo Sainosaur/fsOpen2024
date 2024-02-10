@@ -2,7 +2,6 @@ import {useState} from 'react'
 import server from './Services/backend'
 
 
-const url = "http://localhost:3001/persons"
 const Form = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
@@ -28,7 +27,7 @@ const Form = ({persons, setPersons}) => {
         })
         if (!duplicate) {
           setPersons(persons.concat(person))
-          server.AppendServer(url, person)
+          server.AppendServer(person)
         }
       }
     return (

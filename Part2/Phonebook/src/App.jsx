@@ -22,7 +22,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Form persons= {persons} setPersons={setPersons} />
       <h2>Numbers</h2>
-      <Search persons={persons}/>
+      <Search persons={persons} setPersons={setPersons}/>
     </div>
   )
 }
