@@ -1,7 +1,11 @@
 import axios from 'axios'
 
-const AppendServer = (url,contact) => {
-    return axios.post(url, contact).then(response => response)
+const retrieveData = (url) => {
+    return axios.get(url).then(response => response.data)
 }
 
-export default {AppendServer}
+const AppendServer = (url,contact) => {
+    return axios.post(url, contact).then(response => {response})
+}
+
+export default {AppendServer, retrieveData}
