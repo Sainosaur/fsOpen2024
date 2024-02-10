@@ -1,5 +1,9 @@
 import {useState} from 'react'
+import axios from 'axios'
+import server from './Services/backend'
 
+
+const url = "http://localhost:3001/persons"
 const Form = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
@@ -25,6 +29,7 @@ const Form = ({persons, setPersons}) => {
         })
         if (!duplicate) {
           setPersons(persons.concat(person))
+          server.AppendServer(url, person)
         }
       }
     return (
