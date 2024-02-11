@@ -17,5 +17,9 @@ const deleteData = (contact) => {
 
 }
 
+const updateNumber = (oldContact, newContact) => {
+    return axios.put(`${url}/${oldContact.id}`, newContact).then(response => response.data)
+}
 
-export default {url, AppendServer, retrieveData, deleteData}
+
+export default {url, AppendServer, retrieveData, deleteData, updateNumber}

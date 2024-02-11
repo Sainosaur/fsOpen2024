@@ -15,19 +15,27 @@ const Form = ({persons, setPersons}) => {
     const newPerson = (event) => {
         event.preventDefault()
         let duplicate = false
+        let oldContact = null
         let person = {
           name: newName,
-          number : newNumber
+          number : newNumber,
         }
         persons.forEach(human => {
           if (human.name == person.name) {
-            alert(`${person.name} has already been added to the phonebook`)
+            oldContact = human
             duplicate = true
           }
         })
         if (!duplicate) {
           setPersons(persons.concat(person))
           server.AppendServer(person)
+        } else {
+          const replaceContact = window.confirm(`${person.name} is already added to the phonebook, update the number?`)
+           if (replaceContact) {
+            const newList = persons.filter(contact => contact !== oldContact)
+            server.updateNumber(oldContact,person).then(res => person.id = res.id)
+            setPersons(newList.concat(person))
+           }
         }
       }
     return (

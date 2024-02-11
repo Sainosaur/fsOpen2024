@@ -9,10 +9,7 @@ const App = () => {
   const [persons, setPersons] = useState([]) 
   const hook = () => {
     const data = Server.retrieveData(url).then(response => {
-      console.log("Data Accquired")
-      console.log(response)
       setPersons(response)
-      console.log(`Persons data set to list of ${response.length}`)
     })
   }
   useEffect(hook, [])
