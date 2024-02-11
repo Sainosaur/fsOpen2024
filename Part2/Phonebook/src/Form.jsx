@@ -35,10 +35,14 @@ const Form = ({persons, setPersons, setMessage}) => {
           const replaceContact = window.confirm(`${person.name} is already added to the phonebook, update their number?`)
            if (replaceContact) {
             const newList = persons.filter(contact => contact !== oldContact)
-            server.updateNumber(oldContact,person).then(res => person.id = res.id)
-            setPersons(newList.concat(person))
-            setMessage([`${person.name}'s number changed to ${person.number}!`, "green"])
-            setTimeout(() => setMessage(["Hello"]), 3000)
+            server.updateNumber(oldContact,person).then(res => { 
+              person.id = res.id
+              setPersons(newList.concat(person))
+              setMessage([`${person.name}'s number changed to ${person.number}!`, "green"])
+              setTimeout(() => setMessage(["Hello"]), 3000)
+            }).catch(() => {
+              setMessage([`Server Error: ${person.name} has not been found`, 'red'])
+          })
            }
         }
       }

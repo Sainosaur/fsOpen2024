@@ -11,9 +11,7 @@ const AppendServer = (contact) => {
 }
 
 const deleteData = (contact) => {
-    axios.delete(`${url}/${contact.id}`).then(response => {
-        console.log(`Deleted ${contact}`)
-    }).catch(() => alert("An error occured please refresh and try again"))
+    return axios.delete(`${url}/${contact.id}`)
 
 }
 
