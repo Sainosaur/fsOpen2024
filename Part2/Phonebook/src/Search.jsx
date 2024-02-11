@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import Person from './Person'
 
-const Search = ({persons, setPersons}) => {
+const Search = ({persons, setPersons, setMessage}) => {
     const [search, setSearch] = useState('')
     const updateSearch = (event) => {
       setSearch(event.target.value)
@@ -9,7 +9,7 @@ const Search = ({persons, setPersons}) => {
     const searchResults = (Arr) => {
         return (
           <>
-            {Arr.map(person => <Person key={person.name} person={person} persons={persons} setPersons={setPersons}/>)}
+            {Arr.map(person => <Person key={person.name} person={person} persons={persons} setPersons={setPersons} setMessage={setMessage}/>)}
           </>
         )
       }

@@ -2,7 +2,7 @@ import {useState} from 'react'
 import server from './Services/backend'
 
 
-const Form = ({persons, setPersons}) => {
+const Form = ({persons, setPersons, setMessage}) => {
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
 
@@ -29,12 +29,16 @@ const Form = ({persons, setPersons}) => {
         if (!duplicate) {
           setPersons(persons.concat(person))
           server.AppendServer(person)
+          setMessage([`${person.name} Added to the phonebook!`, 'green'])
+          setTimeout(() => setMessage(["Hello", 'color']), 3000)
         } else {
-          const replaceContact = window.confirm(`${person.name} is already added to the phonebook, update the number?`)
+          const replaceContact = window.confirm(`${person.name} is already added to the phonebook, update their number?`)
            if (replaceContact) {
             const newList = persons.filter(contact => contact !== oldContact)
             server.updateNumber(oldContact,person).then(res => person.id = res.id)
             setPersons(newList.concat(person))
+            setMessage([`${person.name}'s number changed to ${person.number}!`, "green"])
+            setTimeout(() => setMessage(["Hello"]), 3000)
            }
         }
       }
