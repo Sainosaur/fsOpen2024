@@ -3,8 +3,6 @@ import Form from './Form'
 import Search from './Search'
 import Server from './Services/backend'
 
-const url = 'http://localhost:3001/persons'
-
 const Notification = ({message, color}) => {
   const style = {
     color,
@@ -28,7 +26,7 @@ const App = () => {
   const [message, setMessage] = useState(['Hello', 'color'])
 
   const hook = () => {
-    const data = Server.retrieveData(url).then(response => {
+    const data = Server.retrieveData().then(response => {
       setPersons(response)
     })
   }

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let url = 'http://localhost:3001/persons'
+let url = 'http://localhost:3001/api/persons'
 
 const retrieveData = () => {
     return axios.get(url).then(response => response.data)
