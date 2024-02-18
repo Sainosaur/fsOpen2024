@@ -27,10 +27,14 @@ const Form = ({persons, setPersons, setMessage}) => {
           }
         })
         if (!duplicate) {
-          setPersons(persons.concat(person))
-          server.AppendServer(person)
-          setMessage([`${person.name} Added to the phonebook!`, 'green'])
-          setTimeout(() => setMessage(["Hello", 'color']), 3000)
+          server.AppendServer(person).then(response => {
+            setMessage([`${person.name} Added to the phonebook!`, 'green'])
+            setTimeout(() => setMessage(["Hello", 'color']), 3000)
+            setPersons(persons.concat(person))
+          }).catch(error => {
+            setMessage([`Error! Name must be greater than 3 charecters, ${person.name} is not!`, 'red'])
+            setTimeout(() => setMessage(["Hello", 'color']), 3000)
+          })
         } else {
           const replaceContact = window.confirm(`${person.name} is already added to the phonebook, update their number?`)
            if (replaceContact) {
