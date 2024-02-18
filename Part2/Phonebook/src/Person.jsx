@@ -6,7 +6,7 @@ const Person = ({person, persons, setPersons, setMessage}) => {
        <p>{person.name}  {person.number}  <button onClick={() => {
         if (window.confirm(`Delete ${person.name}?`)) {
             Server.deleteData(person).then(() => {
-                setPersons(persons.filter(contact => contact.id !== person.id))
+                setPersons(persons.filter(contact => String(contact._id) != String(person._id)))
                 setMessage([`${person.name} removed sucessfully`, 'green'])
                 setTimeout(() => setMessage(["Hello"]), 3000)
             }).catch(() => {

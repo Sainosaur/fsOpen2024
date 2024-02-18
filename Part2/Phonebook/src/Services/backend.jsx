@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let url = 'http://localhost:3001/api/persons'
+let url = 'http://localhost:3000/api/persons'
 
 const retrieveData = () => {
     return axios.get(url).then(response => response.data)
@@ -11,12 +11,13 @@ const AppendServer = (contact) => {
 }
 
 const deleteData = (contact) => {
-    return axios.delete(`${url}/${contact.id}`)
+    console.log(contact)
+    return axios.delete(`${url}/${contact._id}`)
 
 }
 
 const updateNumber = (oldContact, newContact) => {
-    return axios.put(`${url}/${oldContact.id}`, newContact).then(response => response.data)
+    return axios.put(`${url}/${oldContact._id}`, newContact).then(response => response.data)
 }
 
 
