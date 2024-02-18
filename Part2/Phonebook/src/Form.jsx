@@ -18,7 +18,7 @@ const Form = ({persons, setPersons, setMessage}) => {
         let oldContact = null
         let person = {
           name: newName,
-          number : newNumber,
+          number : String(newNumber),
         }
         persons.forEach(human => {
           if (human.name == person.name) {
@@ -32,7 +32,7 @@ const Form = ({persons, setPersons, setMessage}) => {
             setTimeout(() => setMessage(["Hello", 'color']), 3000)
             setPersons(persons.concat(person))
           }).catch(error => {
-            setMessage([`Error! Name must be greater than 3 charecters, ${person.name} is not!`, 'red'])
+            setMessage([`Illegal Contact!`, 'red'])
             setTimeout(() => setMessage(["Hello", 'color']), 3000)
           })
         } else {
