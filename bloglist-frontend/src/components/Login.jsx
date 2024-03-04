@@ -1,9 +1,9 @@
 import loginService from '../services/login'
 import {useState} from 'react'
 
-const Login = ({user, password, setUser, setPassword}) => {
-  const [usr, setUsr] = useState(null)
-  const [pwd, setPwd] = useState(null)
+const Login = ({setUser}) => {
+  const [usr, setUsr] = useState("")
+  const [pwd, setPwd] = useState("")
 
   const updateUsr = (event) => {
       setUsr(event.target.value)
@@ -13,6 +13,7 @@ const Login = ({user, password, setUser, setPassword}) => {
   }
   const obtainToken = () => {
     loginService(usr,pwd).then(response => {
+        window.localStorage.setItem("user", JSON.stringify(response.data))
         setUser(response.data)
     })
   }
@@ -20,7 +21,7 @@ const Login = ({user, password, setUser, setPassword}) => {
       <div>
           <p>username: <input value={usr} onChange={() => updateUsr(event)} /></p>
           <p>password: <input value={pwd} onChange={() => updatePwd(event)} type="password"/></p>
-          <button onClick={() => obtainToken(user, password)}>Submit</button>
+          <button onClick={() => obtainToken()}>Submit</button>
       </div>
   )
 }
