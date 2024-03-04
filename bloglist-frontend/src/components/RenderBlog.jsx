@@ -1,4 +1,7 @@
 import {useState, useEffect} from 'react'
+import Blog from '../components/Blog'
+import blogService from '../services/blogs'
+import NewBlog from './NewBlog'
 
 const RenderBlog = ({setUser, user}) => {
     const [blogs, setBlogs] = useState([])
@@ -8,6 +11,7 @@ const RenderBlog = ({setUser, user}) => {
       )  
     }, [])
     return (
+    <>
       <div>
         <p>{`${String(user.name)} logged in`}<button onClick={() => {
           setUser("")
@@ -17,6 +21,8 @@ const RenderBlog = ({setUser, user}) => {
           }}>LogOut</button></p>
         {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
       </div>
+      <NewBlog user={user}/>
+      </>
     )
   }
 
