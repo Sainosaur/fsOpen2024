@@ -12,6 +12,7 @@ const RenderBlog = ({setUser, user}) => {
     }, [])
     return (
     <>
+      <NewBlog user={user}/>
       <div>
         <p>{`${String(user.name)} logged in`}<button onClick={() => {
           setUser("")
@@ -21,7 +22,6 @@ const RenderBlog = ({setUser, user}) => {
           }}>LogOut</button></p>
         {blogs.map(blog => <Blog key={blog.id} blog={blog}/>)}
       </div>
-      <NewBlog user={user}/>
       </>
     )
   }

@@ -19,9 +19,9 @@ const addBlog = async (title, author, url, user) => {
   }
   try {
     const request = await axios.post(baseUrl, newBlog, config)
-    return "Blog Added"
+    const resp = "Blog Added"
   } catch {
-    return "Bad Request"
+    const resp = "Bad Request"
   }
 }
 
