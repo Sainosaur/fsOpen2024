@@ -1,6 +1,7 @@
 import { useState } from "react"
 import BlogService from "../services/blogs"
-const Blog = ({ blog, user }) => {
+
+const Blog = ({ blog, user, setBlogList, blogList}) => {
   const blogStyle = {
     color: 'blue',
     paddingTop: 10,
@@ -23,6 +24,15 @@ const Blog = ({ blog, user }) => {
     BlogService.likeBlog(blog, user)
     setLikes(likes + 1)
   }
+  const deleteBlog = () => {
+    try {
+      window.confirm("Are you sure you would like to delete this blog?") ? BlogService.deleteBlog(blog) : null
+      setBlogList(blogList.filter((blog1) => blog1 != blog,))
+
+    } catch {
+      window.alert("Error! Cannot delete blog, please try again later")
+    }
+  }
 
   return (
   <div style={blogStyle}>
@@ -31,6 +41,7 @@ const Blog = ({ blog, user }) => {
       <p>{blog.url}</p>
       <p>likes: {likes}<button onClick={() => likeBlog()}>like</button></p>
       <p>user: {blog.user ? blog.user.name : 'not found'}</p>
+      {blog.user.id == user.id ? <button onClick={() => deleteBlog()}>remove</button> : null}
     </div>
   </div>  
 )}
