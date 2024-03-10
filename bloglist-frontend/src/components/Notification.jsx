@@ -1,5 +1,5 @@
 
-const Notification = ({message, color}) => {
+const Notification = ({ message, color }) => {
     const style = {
         color,
         borderStyle: 'Solid',
@@ -8,14 +8,14 @@ const Notification = ({message, color}) => {
         fontStyle: 'italic',
         padding: 10,
         fontSize: 30
-      }
-      if (message != "null") {
+    }
+    if (message !== 'null') {
         return (
             <>
-            <h1 style={style}>{message}</h1>
+                <h1 style={style}>{message}</h1>
             </>
         )
-      }
+    }
 }
 
 export default Notification
