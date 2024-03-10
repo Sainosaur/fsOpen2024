@@ -9,8 +9,8 @@ const RenderBlog = ({setUser, user}) => {
     const GlobalToggle = useRef()
     useEffect(() => {
       blogService.getAll().then(blogs =>
-        setBlogs(blogs)
-      )  
+        setBlogs(blogs.sort((a, b) => b.likes - a.likes))
+      )
     }, [])
     return (
     <>
