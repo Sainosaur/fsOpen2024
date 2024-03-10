@@ -9,7 +9,7 @@ const getAll = () => {
 const addBlog = async (title, author, url, user) => {
   const config = {
     headers : {
-      'Authorization': user.user.token
+      'Authorization': user.token
     }
   }
   const newBlog = {
@@ -17,12 +17,7 @@ const addBlog = async (title, author, url, user) => {
     author,
     url
   }
-  try {
-    const request = await axios.post(baseUrl, newBlog, config)
-    const resp = "Blog Added"
-  } catch {
-    const resp = "Bad Request"
-  }
+  await axios.post(baseUrl, newBlog, config)
 }
 
 export default { getAll, addBlog}
