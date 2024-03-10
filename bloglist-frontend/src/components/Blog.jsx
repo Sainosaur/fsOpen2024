@@ -1,5 +1,6 @@
 import { useState } from "react"
-const Blog = ({ blog }) => {
+import BlogService from "../services/blogs"
+const Blog = ({ blog, user }) => {
   const blogStyle = {
     color: 'blue',
     paddingTop: 10,
@@ -9,6 +10,8 @@ const Blog = ({ blog }) => {
     marginBottom: 5
   }
   const [disp, setDisp] = useState([{display: 'none'}, "View"])
+  // State used to handle likes so that the component reloads when the like button is pressed
+  const [likes, setLikes] = useState(blog.likes)
   const toggleVisibility = () => {
     if (disp[1] == "View") {
       setDisp([{}, "Hide"])
@@ -16,12 +19,18 @@ const Blog = ({ blog }) => {
       setDisp([{display: 'none'},"View"])
     }
   }
+  const likeBlog = () => {
+    BlogService.likeBlog(blog, user)
+    setLikes(likes + 1)
+  }
+
   return (
   <div style={blogStyle}>
     <p>{blog.title} {blog.author} <button onClick={() => toggleVisibility()}>{disp[1]}</button></p>
     <div style={disp[0]}>
       <p>{blog.url}</p>
-      <p>likes: {blog.likes}<button>like</button></p>
+      <p>likes: {likes}<button onClick={() => likeBlog()}>like</button></p>
+      <p>user: {blog.user ? blog.user.name : 'not found'}</p>
     </div>
   </div>  
 )}

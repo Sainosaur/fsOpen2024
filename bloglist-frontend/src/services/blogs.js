@@ -20,4 +20,14 @@ const addBlog = async (title, author, url, user) => {
   await axios.post(baseUrl, newBlog, config)
 }
 
-export default { getAll, addBlog}
+const likeBlog = async (blog, user) => {
+  const config = {
+    headers : {
+      'Authorization': user.token
+    }
+  }
+  blog.likes = blog.likes + 1
+  await axios.put(`${baseUrl}/${blog.id}`, blog)
+
+}
+export default { getAll, addBlog, likeBlog}
