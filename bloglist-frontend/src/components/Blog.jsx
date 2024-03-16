@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import BlogService from '../services/blogs'
 
-const Blog = ({ blog, user, setBlogList, blogList }) => {
+const Blog = ({ blog, user, setBlogList, blogList, like }) => {
     const blogStyle = {
         color: 'blue',
         paddingTop: 10,
@@ -21,7 +21,7 @@ const Blog = ({ blog, user, setBlogList, blogList }) => {
         }
     }
     const likeBlog = () => {
-        BlogService.likeBlog(blog, user)
+        like(blog, user)
         setLikes(likes + 1)
     }
     const deleteBlog = () => {

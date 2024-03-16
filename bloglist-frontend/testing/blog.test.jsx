@@ -46,3 +46,26 @@ test('URL and number of likes are shown when the view button is clicked', async 
     // the obtained tst variable is tested to ensure it's not invisible.
     expect(tst).not.toHaveStyle('display: none')
 })
+
+test('Like button calls its onClick function effectively', async () => {
+    const usr = userEvent.setup()
+    const testUser = {
+        name: 'Test',
+        id: '0000000',
+    }
+    const blog = {
+        title: 'Hello',
+        author: 'Me',
+        likes: 23,
+        url: 'google.com',
+        user: testUser,
+    }
+    const tstLike = vi.fn()
+    const container = render(<Blog blog={blog} user={testUser} like={tstLike} />).container
+    const viewButton = screen.getByText('View')
+    await usr.click(viewButton)
+    const likeButton = screen.getByText('like')
+    await usr.click(likeButton)
+    await usr.click(likeButton)
+    expect(tstLike.mock.calls).toHaveLength(2)
+})
