@@ -141,40 +141,40 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import loginService from '../services/login'</span></span></span>
 <span class="cstat-no" title="statement not covered" >import Notification from './Notification'</span>
-<span class="cstat-no" title="statement not covered" >import {useState} from 'react'</span>
+<span class="cstat-no" title="statement not covered" >import { useState } from 'react'</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >const Login = ({setUser}) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const [usr, setUsr] = useState("")</span>
-<span class="cstat-no" title="statement not covered" >  const [pwd, setPwd] = useState("")</span>
-<span class="cstat-no" title="statement not covered" >  const [message, setMessage] = useState(["null","red"])</span>
+<span class="cstat-no" title="statement not covered" >const Login = ({ setUser }) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    const [usr, setUsr] = useState('')</span>
+<span class="cstat-no" title="statement not covered" >    const [pwd, setPwd] = useState('')</span>
+<span class="cstat-no" title="statement not covered" >    const [message, setMessage] = useState(['null','red'])</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  const updateUsr = (event) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      setUsr(event.target.value)</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-<span class="cstat-no" title="statement not covered" >  const updatePwd = (event) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      setPwd(event.target.value)</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-<span class="cstat-no" title="statement not covered" >  const obtainToken = () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    loginService(usr,pwd).then(response =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        window.localStorage.setItem("user", JSON.stringify(response.data))</span>
-<span class="cstat-no" title="statement not covered" >        setUser(response.data)</span>
-<span class="cstat-no" title="statement not covered" >    }).catch(</span>
-<span class="cstat-no" title="statement not covered" >        setMessage(["wrong username or password", "red"]),</span>
-<span class="cstat-no" title="statement not covered" >        setTimeout(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >            setMessage(["null", "red"])</span>
-<span class="cstat-no" title="statement not covered" >        }, "5000")</span>
+<span class="cstat-no" title="statement not covered" >    const updateUsr = (event) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        setUsr(event.target.value)</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    const updatePwd = (event) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        setPwd(event.target.value)</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    const obtainToken = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        loginService(usr,pwd).then(response =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            window.localStorage.setItem('user', JSON.stringify(response.data))</span>
+<span class="cstat-no" title="statement not covered" >            setUser(response.data)</span>
+<span class="cstat-no" title="statement not covered" >        }).catch(</span>
+<span class="cstat-no" title="statement not covered" >            setMessage(['wrong username or password', 'red']),</span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                setMessage(['null', 'red'])</span>
+<span class="cstat-no" title="statement not covered" >            }, '5000')</span>
+<span class="cstat-no" title="statement not covered" >        )</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    return (</span>
+<span class="cstat-no" title="statement not covered" >        &lt;&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;Notification message={message[0]} color={message[1]}/&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;p&gt;username: &lt;input value={usr} onChange={() =&gt; updateUsr(event)} /&gt;&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;p&gt;password: &lt;input value={pwd} onChange={() =&gt; updatePwd(event)} type="password"/&gt;&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;button onClick={() =&gt; obtainToken()}&gt;Submit&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/&gt;</span>
 <span class="cstat-no" title="statement not covered" >    )</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;&gt;</span>
-<span class="cstat-no" title="statement not covered" >    &lt;Notification message={message[0]} color={message[1]}/&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;div&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;p&gt;username: &lt;input value={usr} onChange={() =&gt; updateUsr(event)} /&gt;&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;p&gt;password: &lt;input value={pwd} onChange={() =&gt; updatePwd(event)} type="password"/&gt;&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;button onClick={() =&gt; obtainToken()}&gt;Submit&lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >    &lt;/&gt;</span>
-<span class="cstat-no" title="statement not covered" >  )</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >export default Login</span></pre></td></tr></table></pre>
@@ -184,7 +184,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-13T20:32:02.387Z
+                at 2024-03-16T16:28:01.102Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

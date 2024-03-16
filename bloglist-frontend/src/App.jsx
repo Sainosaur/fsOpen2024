@@ -8,7 +8,7 @@ const App = () => {
     return (
         <div>
             <h2>blogs</h2>
-            {user === undefined ? <Login setUser={setUser} /> : <RenderBlog setUser={setUser} user={user}/>}
+            {user === null ? <Login setUser={setUser} /> : <RenderBlog setUser={setUser} user={user}/>}
         </div>
     )
 }

@@ -37,8 +37,8 @@ const Blog = ({ blog, user, setBlogList, blogList }) => {
     return (
         <div style={blogStyle}>
             <p>{blog.title} {blog.author} <button onClick={() => toggleVisibility()}>{disp[1]}</button></p>
-            <div style={disp[0]}>
-                <p>{blog.url}</p>
+            <div style={disp[0]} className='toggleVis'>
+                <p>url: {blog.url}</p>
                 <p>likes: {likes}<button onClick={() => likeBlog()}>like</button></p>
                 <p>user: {blog.user ? blog.user.name : 'not found'}</p>
                 {blog.user.id === user.id ? <button onClick={() => deleteBlog()}>remove</button> : null}
