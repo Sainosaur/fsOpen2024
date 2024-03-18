@@ -90,6 +90,41 @@ describe('Blog app functionality', () => {
                 await page.getByRole('Button', { name: 'View'}).click()
                 
                 expect(page.getByRole('Button', { name: 'remove'})).not.toBeVisible()
+            }),
+            test('Blogs are ordered by likes', async ({page}) => {
+                // for loop used to create 25 blogs entires and like all of them
+                for(let i = 1; i <= 25; i++){
+                    await page.getByText('new blog').click()
+                    await page.locator('.Title').fill(`Testing blog ${i}...`)
+                    await page.locator('.Author').fill('Test-dude')
+                    await page.locator('.Url').fill('http://www.example.com')
+                    await page.getByRole('button', { name: 'create' }).click()
+                    // Reloads page so new blog is added to the list ready to like
+                    page.reload()
+                    await page.getByText(`Testing blog ${i}...`).getByRole('Button', { name: 'View' }).click()
+                    let likes = 0;
+                    // Iteratively likes the blog a set number of times.
+                    while (likes !== i) {
+                        await page.getByRole('Button', { name: 'like' }).click()
+                        likes++
+                    }
+                }
+                // reloads page to ensure sorting takes place correctly. 
+                page.reload()
+                // gets all of the blogs in an array in order of rendering
+                const blogs = await page.getByText('Testing blog').all()
+                console.log(blogs)
+                let likes = 25;
+                let i = 0;
+                // Iterates through each of 25 blogs to check they have the correct number of likes (in order)
+                while (likes >= 0) {
+                    await blogs[i].getByRole('Button', 'View');
+                    // like in this case accounts for the like button to ensure the checking is strict (i.e likes: 2 doesn't match with likes: 25)
+                    expect(page.getByText(`likes: ${likes}like`)).toBeVisible()
+                    await blogs[i].getByRole('Button', 'Hide').click()
+                    likes--
+                    i++
+                }
             })
     })
 })
