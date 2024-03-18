@@ -18,7 +18,10 @@ const Login = ({ setUser }) => {
             window.localStorage.setItem('user', JSON.stringify(response.data))
             setUser(response.data)
         }).catch(
-            setMessage(['wrong username or password', 'red']),
+            // waits for half a second before setting error message to ensure the request has actually failed
+            setTimeout(() => {
+                setMessage(['wrong username or password', 'red'])
+            }, '500'),
             setTimeout(() => {
                 setMessage(['null', 'red'])
             }, '5000')
@@ -28,8 +31,8 @@ const Login = ({ setUser }) => {
         <>
             <Notification message={message[0]} color={message[1]}/>
             <div>
-                <p>username: <input value={usr} onChange={() => updateUsr(event)} /></p>
-                <p>password: <input value={pwd} onChange={() => updatePwd(event)} type="password"/></p>
+                <p>username: <input value={usr} onChange={() => updateUsr(event)} className='UserField' /></p>
+                <p>password: <input value={pwd} onChange={() => updatePwd(event)} type="password" className='PwdField'/></p>
                 <button onClick={() => obtainToken()}>Submit</button>
             </div>
         </>
