@@ -29,7 +29,6 @@ const anecdoteSlice = createSlice({
         ...anec,
         votes: anec.votes + 1
       }
-      console.log(JSON.parse(JSON.stringify(newAnec)))
       const newState = state.map(anecdote => anecdote.id === id ? newAnec : anecdote)
       return newState.sort((a, b) => b.votes - a.votes)
     },
