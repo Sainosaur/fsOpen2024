@@ -1,3 +1,4 @@
+import { createSlice } from "@reduxjs/toolkit"
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -6,7 +7,6 @@ const anecdotesAtStart = [
   'Premature optimization is the root of all evil.',
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
-
 const getId = () => (100000 * Math.random()).toFixed(0)
 
 const asObject = (anecdote) => {
@@ -16,43 +16,30 @@ const asObject = (anecdote) => {
     votes: 0
   }
 }
-
 const initialState = anecdotesAtStart.map(asObject)
 
-const reducer = (state = initialState, action) => {
-  switch(action.type) {
-    case 'VOTE':
-      const id = action.payload.id
-      const anec = state.find(anecdote => anecdote.id === action.payload.id)
-      anec.votes++
-      const newState = state.map(anecdote => anecdote.id === id ? anec : anecdote)
+const anecdoteSlice = createSlice({
+  name: 'anecdotes',
+  initialState,
+  reducers: {
+    voteAction(state, action) {
+      const id = action.payload
+      const anec = state.find(anecdote => anecdote.id === id)
+      const newAnec = {
+        ...anec,
+        votes: anec.votes + 1
+      }
+      console.log(JSON.parse(JSON.stringify(newAnec)))
+      const newState = state.map(anecdote => anecdote.id === id ? newAnec : anecdote)
       return newState.sort((a, b) => b.votes - a.votes)
-    case 'NEW-ANECDOTE':
-      const newAnecdote = asObject(action.payload.content)
+    },
+    newAction(state, action) {     
+      const newAnecdote = asObject(action.payload)
       return state.concat(newAnecdote)
-
-  }
-
-
-  return state
-}
-
-export const voteAction = (id) => {
-  return {
-    type: 'VOTE',
-    payload: {
-      id
     }
   }
-}
+})
 
-export const newAction = (content) => {
-  return {
-    type: "NEW-ANECDOTE",
-    payload: {
-      content
-    }
-  }
-}
+export default anecdoteSlice.reducer
 
-export default reducer
+export const { voteAction, newAction } = anecdoteSlice.actions
