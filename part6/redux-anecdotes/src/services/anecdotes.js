@@ -9,6 +9,15 @@ const getAll = async () => {
     }
 }
 
+const addNew = async (anec) => {
+    try {
+        await axios.post('http://localhost:3001/anecdotes', anec)
+    } catch {
+        console.log('Server error cannot POST')
+    }
+}
+
 export default {
-    getAll
+    getAll,
+    addNew
 }

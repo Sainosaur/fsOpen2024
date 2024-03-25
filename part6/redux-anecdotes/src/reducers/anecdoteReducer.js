@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit"
-import getAll from '../services/anecdotes'
+import anecdoteService from '../services/anecdotes'
 
+
+const getId = () => (100000 * Math.random()).toFixed(0)
 
 const asObject = (anecdote) => {
   return {
     content: anecdote,
-    id,
+    id: getId(),
     votes: 0
   }
 }
@@ -26,6 +28,7 @@ const anecdoteSlice = createSlice({
     },
     newAction(state, action) {     
       const newAnecdote = asObject(action.payload)
+      anecdoteService.addNew(newAnecdote)
       return state.concat(newAnecdote)
     },
     setAnecdotes(state, action) {
