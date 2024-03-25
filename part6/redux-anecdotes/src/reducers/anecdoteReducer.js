@@ -46,6 +46,7 @@ export const getAnecdotes = () => {
   return async dispatch => {
     // Calls back end to get the anecdotes
     const anecdotes = await anecdoteService.getAll()
+    anecdotes.sort((a,b) => b.votes - a.votes )
     // Sends dispatch with anecdotes list
     dispatch(setAnecdotes(anecdotes))
   }
@@ -58,5 +59,16 @@ export const newAnecdote = (content) => {
     await anecdoteService.addNew(asObject(content))
     // adds anecdote to front end using existing reducer
     dispatch(newAction(content))
+  }
+}
+
+export const voteAnecdote = (content) => {
+  return async dispatch => {
+    const newAnec = {
+      ...content,
+      votes: content.votes + 1
+    }
+    await anecdoteService.replace(newAnec)
+    dispatch(voteAction(content.id))
   }
 }

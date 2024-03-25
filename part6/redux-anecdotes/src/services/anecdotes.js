@@ -17,7 +17,15 @@ const addNew = async (anec) => {
     }
 }
 
+const replace = async (anec) => {
+    try {
+        await axios.put(`http://localhost:3001/anecdotes/${anec.id}`, anec)
+    } catch {
+        console.log('Server error cannot PUT')
+    }
+}
 export default {
     getAll,
-    addNew
+    addNew,
+    replace
 }
