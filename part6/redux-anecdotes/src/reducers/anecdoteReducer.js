@@ -28,7 +28,6 @@ const anecdoteSlice = createSlice({
     },
     newAction(state, action) {     
       const newAnecdote = asObject(action.payload)
-      anecdoteService.addNew(newAnecdote)
       return state.concat(newAnecdote)
     },
     setAnecdotes(state, action) {
@@ -49,5 +48,15 @@ export const getAnecdotes = () => {
     const anecdotes = await anecdoteService.getAll()
     // Sends dispatch with anecdotes list
     dispatch(setAnecdotes(anecdotes))
+  }
+}
+
+export const newAnecdote = (content) => {
+  return async dispatch => {
+    // sends anecdote to back end 
+    console.log(content)
+    await anecdoteService.addNew(asObject(content))
+    // adds anecdote to front end using existing reducer
+    dispatch(newAction(content))
   }
 }
