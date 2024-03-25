@@ -40,3 +40,14 @@ const anecdoteSlice = createSlice({
 export default anecdoteSlice.reducer
 
 export const { voteAction, newAction, setAnecdotes } = anecdoteSlice.actions
+
+// Redux thunk based action constructor function
+export const getAnecdotes = () => {
+  // Essentially transforms itself into an asynchronous function
+  return async dispatch => {
+    // Calls back end to get the anecdotes
+    const anecdotes = await anecdoteService.getAll()
+    // Sends dispatch with anecdotes list
+    dispatch(setAnecdotes(anecdotes))
+  }
+}
