@@ -6,7 +6,8 @@ export const getAnecdotes = () => {
 }
 
 export const sendAnecdote = (anecdote) => {
-    return axios.post('http://localhost:3001/anecdotes', anecdote).then(res => res.data)
+    return axios.post('http://localhost:3001/anecdotes', anecdote)
+    .then(res => res.data)
 }
 
 export const voteAnecdote = (anecdote) => {
