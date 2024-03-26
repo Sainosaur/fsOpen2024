@@ -1,8 +1,7 @@
-import { useContext } from 'react'
-import { NotificationContext } from './NotificationContext'
+import { useMessageValue } from '../helper'
 
 const Notification = () => {
-  const [message, messageDispatch] = useContext(NotificationContext)
+  const message = useMessageValue()
   const style = {
     border: 'solid',
     padding: 10,

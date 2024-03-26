@@ -1,14 +1,13 @@
 import { useQueryClient ,QueryClient, useMutation } from "@tanstack/react-query"
 import { sendAnecdote } from "../requests/anecdotes"
-import { NotificationContext } from "./NotificationContext"
-import { useContext } from 'react'
+import { useMessageDispatch } from "../helper"
 
 const getID = () => {
   return Math.floor(Math.random()*90000) + 10000
 }
 
 const AnecdoteForm = () => {
-  const [message, messageDispatch] = useContext(NotificationContext)
+  const messageDispatch = useMessageDispatch()
   const queryClient = useQueryClient()
   const addAnecdoteMutation = useMutation({ mutationFn:sendAnecdote, onSuccess: (res) => {
   queryClient.invalidateQueries({ queryKey: ['anecdotes'] })
