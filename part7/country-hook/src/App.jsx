@@ -29,7 +29,7 @@ const useCountry = (name) => {
     axios.get(`https://studies.cs.helsinki.fi/restcountries/api/name/${name}`).then(res => {
       setCountry(res.data)
     })
-  })
+  }, [name])
   return {
     data, found
   }
