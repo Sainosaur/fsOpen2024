@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Login from './components/Login'
 import RenderBlog from './components/RenderBlog'
 
+
 const App = () => {
     const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('user')))
 

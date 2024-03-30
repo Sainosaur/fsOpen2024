@@ -3,28 +3,30 @@ import Blog from '../components/Blog'
 import blogService from '../services/blogs'
 import NewBlog from './NewBlog'
 import VisibilityComponent from './Visibility'
+import { useDispatch } from 'react-redux'
+import { SetNotification, ResetNotification } from '../reducers/notification'
 
 const RenderBlog = ({ setUser, user }) => {
     const [blogs, setBlogs] = useState([])
     const GlobalToggle = useRef()
+    const dispatch = useDispatch()
     const likeBlog = (blog, user) => {
         blogService.likeBlog(blog, user)
     }
-    const addBlog = async (title, author, url, user, setMessage, selfToggle) => {
+    const addBlog = async (title, author, url, user, selfToggle) => {
         try{
             await blogService.addBlog(title, author, url, user)
-            setMessage([`a new blog ${title} by ${author} added!`, 'green']),
+            dispatch(SetNotification({message:`a new blog ${title} by ${author} added!`, color: 'green'})),
             setTimeout(() => {
-                setMessage(['null', 'green'])
+                dispatch(ResetNotification())
                 // uses referenced self toggle function to automatically hide the form after blog is added.
                 selfToggle()
             }, '5000')
         } catch {
-            setMessage([`${title} by ${author} couldn't be added, please try again later`, 'red']),
+            dispatch(SetNotification({message: `${title} by ${author} couldn't be added, please try again later`, color: 'red'})),
             setTimeout(() => {
-                setMessage(['null', 'green'])
+                dispatch(ResetNotification())
             }, '5000')
-            console.log(self)
         }
     }
     useEffect(() => {
