@@ -3,8 +3,9 @@ import loginService from '../services/login'
 import Notification from './Notification'
 import { useState } from 'react'
 import { ResetNotification, SetNotification } from '../stores/notification'
+import { setUser } from '../stores/user'
 
-const Login = ({ setUser }) => {
+const Login = () => {
     const [usr, setUsr] = useState('')
     const [pwd, setPwd] = useState('')
     const dispatch = useDispatch()
@@ -18,7 +19,7 @@ const Login = ({ setUser }) => {
     const obtainToken = () => {
         loginService(usr,pwd).then(response => {
             window.localStorage.setItem('user', JSON.stringify(response.data))
-            setUser(response.data)
+            dispatch(setUser(response.data))
         }).catch(
             // waits for half a second before setting error message to ensure the request has actually failed
             setTimeout(() => {
