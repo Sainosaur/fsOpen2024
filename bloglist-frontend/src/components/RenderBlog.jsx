@@ -3,19 +3,20 @@ import Blog from '../components/Blog'
 import blogService from '../services/blogs'
 import NewBlog from './NewBlog'
 import VisibilityComponent from './Visibility'
-import { useDispatch } from 'react-redux'
-import { SetNotification, ResetNotification } from '../reducers/notification'
+import { useDispatch, useSelector } from 'react-redux'
+import { SetNotification, ResetNotification } from '../stores/notification'
+import { setBlogs, addBlog } from '../stores/blog'
 
 const RenderBlog = ({ setUser, user }) => {
-    const [blogs, setBlogs] = useState([])
     const GlobalToggle = useRef()
     const dispatch = useDispatch()
     const likeBlog = (blog, user) => {
         blogService.likeBlog(blog, user)
     }
-    const addBlog = async (title, author, url, user, selfToggle) => {
+    const onAddBlog = async (title, author, url, user, selfToggle) => {
         try{
-            await blogService.addBlog(title, author, url, user)
+            const res = await blogService.addBlog(title, author, url, user)
+            dispatch(addBlog(res.data))
             dispatch(SetNotification({message:`a new blog ${title} by ${author} added!`, color: 'green'})),
             setTimeout(() => {
                 dispatch(ResetNotification())
@@ -31,9 +32,10 @@ const RenderBlog = ({ setUser, user }) => {
     }
     useEffect(() => {
         blogService.getAll().then(blogs =>
-            setBlogs(blogs.sort((a, b) => b.likes - a.likes))
+            dispatch(setBlogs(blogs.sort((a, b) => b.likes - a.likes)))
         )
     }, [])
+    const blogs = useSelector(state => state.blog)
     return (
         <>
             <div>
@@ -44,7 +46,7 @@ const RenderBlog = ({ setUser, user }) => {
                     window.localStorage.clear()
                 }}>Log Out</button></p>
                 <VisibilityComponent invisiblemessage="new blog" visiblemessage="cancel" ref={GlobalToggle}>
-                    <NewBlog user={user} selfToggle={GlobalToggle} addBlog={addBlog} />
+                    <NewBlog user={user} selfToggle={GlobalToggle} addBlog={onAddBlog} />
                 </VisibilityComponent>
                 {blogs.map(blog => <Blog key={blog.id} blog={blog} user={user} setBlogList={setBlogs} blogList={blogs} like={likeBlog}/>)}
             </div>

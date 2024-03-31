@@ -17,7 +17,7 @@ const addBlog = async (title, author, url, user) => {
         author,
         url
     }
-    await axios.post(baseUrl, newBlog, config)
+    return await axios.post(baseUrl, newBlog, config)
 }
 
 const likeBlog = async (blog, user) => {

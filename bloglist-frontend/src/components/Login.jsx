@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import loginService from '../services/login'
 import Notification from './Notification'
 import { useState } from 'react'
-import { ResetNotification, SetNotification } from '../reducers/notification'
+import { ResetNotification, SetNotification } from '../stores/notification'
 
 const Login = ({ setUser }) => {
     const [usr, setUsr] = useState('')
