@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, current } from "@reduxjs/toolkit"
 
 const initalState = [];
 
@@ -13,9 +13,15 @@ const blogSlice = createSlice({
             return newState
         }, resetBlog(state, action) {
             return initalState
-        }
+        }, updateBlogLike(state, action) {
+            const usableState = current(state)
+            return usableState.map(bl => bl == action.payload ? {...bl, likes: bl.likes + 1} : bl)
+        }, removeBlog(state, action) {
+            const usableState = current(state)
+            return usableState.filter(bl => bl !== action.payload)
+        } 
     }
 })
 
 export default blogSlice.reducer
-export const { setBlogs, addBlog, resetBlog } = blogSlice.actions
+export const { setBlogs, addBlog, resetBlog, updateBlogLike, removeBlog } = blogSlice.actions

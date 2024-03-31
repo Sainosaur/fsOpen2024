@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import BlogService from '../services/blogs'
+import { useDispatch } from 'react-redux'
+import { removeBlog } from '../stores/blog'
 
-const Blog = ({ blog, user, setBlogList, blogList, like }) => {
+const Blog = ({ blog, user, blogList, like }) => {
     const blogStyle = {
         color: 'blue',
         paddingTop: 10,
@@ -11,8 +13,8 @@ const Blog = ({ blog, user, setBlogList, blogList, like }) => {
         marginBottom: 5
     }
     const [disp, setDisp] = useState([{ display: 'none' }, 'View'])
-    // State used to handle likes so that the component reloads when the like button is pressed
-    const [likes, setLikes] = useState(blog.likes)
+    const dispatch = useDispatch()
+    // State used to handle likes so that the component reloads when the like button is presseds
     const toggleVisibility = () => {
         if (disp[1] === 'View') {
             setDisp([{}, 'Hide'])
@@ -22,12 +24,11 @@ const Blog = ({ blog, user, setBlogList, blogList, like }) => {
     }
     const likeBlog = () => {
         like(blog, user)
-        setLikes(likes + 1)
     }
     const deleteBlog = () => {
         try {
             window.confirm('Are you sure you would like to delete this blog?') ? BlogService.deleteBlog(blog) : null
-            setBlogList(blogList.filter((blog1) => blog1 !== blog,))
+            dispatch(removeBlog(blog))
 
         } catch {
             window.alert('Error! Cannot delete blog, please try again later')
@@ -39,7 +40,7 @@ const Blog = ({ blog, user, setBlogList, blogList, like }) => {
             <p>{blog.title} {blog.author} <button onClick={() => toggleVisibility()}>{disp[1]}</button></p>
             <div style={disp[0]} className='toggleVis'>
                 <p>url: {blog.url}</p>
-                <p className='likeCount'>likes: {likes}<button onClick={() => likeBlog()}>like</button></p>
+                <p className='likeCount'>likes: {blog.likes}<button onClick={() => likeBlog()}>like</button></p>
                 <p>user: {blog.user ? blog.user.name : 'not found'}</p>
                 {blog.user.id === user.id ? <button onClick={() => deleteBlog()}>remove</button> : null}
             </div>

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Notification from './Notification'
-import { useDispatch } from 'react-redux'
 
 const NewBlog = (props) => {
     const [title, setTitle] = useState('')

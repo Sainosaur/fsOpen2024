@@ -26,8 +26,11 @@ const likeBlog = async (blog, user) => {
             'Authorization': user.token
         }
     }
-    blog.likes = blog.likes + 1
-    await axios.put(`${baseUrl}/${blog.id}`, blog)
+    const Blog = {
+        ...blog,
+        likes: blog.likes + 1
+    }
+    await axios.put(`${baseUrl}/${blog.id}`, Blog)
 
 }
 

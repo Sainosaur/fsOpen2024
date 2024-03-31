@@ -5,13 +5,14 @@ import NewBlog from './NewBlog'
 import VisibilityComponent from './Visibility'
 import { useDispatch, useSelector } from 'react-redux'
 import { SetNotification, ResetNotification } from '../stores/notification'
-import { setBlogs, addBlog } from '../stores/blog'
+import { setBlogs, addBlog, updateBlogLike } from '../stores/blog'
 
 const RenderBlog = ({ setUser, user }) => {
     const GlobalToggle = useRef()
     const dispatch = useDispatch()
     const likeBlog = (blog, user) => {
         blogService.likeBlog(blog, user)
+        dispatch(updateBlogLike(blog))
     }
     const onAddBlog = async (title, author, url, user, selfToggle) => {
         try{
