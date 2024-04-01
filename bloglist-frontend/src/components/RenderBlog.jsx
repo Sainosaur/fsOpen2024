@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Blog from '../components/Blog'
 import blogService from '../services/blog'
 import NewBlog from './NewBlog'
@@ -11,10 +11,6 @@ const RenderBlog = () => {
     const user = useSelector(state => state.user)
     const GlobalToggle = useRef()
     const dispatch = useDispatch()
-    const likeBlog = (blog, user) => {
-        blogService.likeBlog(blog, user)
-        dispatch(updateBlogLike(blog))
-    }
     const onAddBlog = async (title, author, url, user, selfToggle) => {
         try{
             const res = await blogService.addBlog(title, author, url, user)
@@ -44,7 +40,7 @@ const RenderBlog = () => {
                 <VisibilityComponent invisiblemessage="new blog" visiblemessage="cancel" ref={GlobalToggle}>
                     <NewBlog user={user} selfToggle={GlobalToggle} addBlog={onAddBlog} />
                 </VisibilityComponent>
-                {blogs.map(blog => <Blog key={blog.id} blog={blog} user={user} setBlogList={setBlogs} blogList={blogs} like={likeBlog}/>)}
+                {blogs.map(blog => <Blog key={blog.id} blog={blog} />)}
             </div>
         </>
     )

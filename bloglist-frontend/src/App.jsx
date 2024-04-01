@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { logOut} from './stores/user'
 import Users from './components/Users'
 import User from './components/User'
+import BlogPage from './components/BlogPage'
 
 const App = () => {
     const user = useSelector(state => state.user)
@@ -21,7 +22,8 @@ const App = () => {
                 <Routes>
                     <Route path='/' Component={user === null ? Login : RenderBlog}/>
                     <Route path='/users' Component={Users} />
-                    <Route path={'/users/:id'} Component={User}   />
+                    <Route path='/users/:id' Component={User} />
+                    <Route path='/blogs/:id' Component={BlogPage} />
                 </Routes>
 
             </Router>
