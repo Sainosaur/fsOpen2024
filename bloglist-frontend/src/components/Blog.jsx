@@ -1,7 +1,3 @@
-import { useState } from 'react'
-import BlogService from '../services/blog'
-import { useDispatch } from 'react-redux'
-import { removeBlog } from '../stores/blog'
 import { Link } from 'react-router-dom'
 
 const Blog = ({ blog }) => {
