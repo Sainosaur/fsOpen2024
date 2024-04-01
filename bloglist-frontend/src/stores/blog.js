@@ -19,7 +19,7 @@ const blogSlice = createSlice({
         }, removeBlog(state, action) {
             const usableState = current(state)
             return usableState.filter(bl => bl !== action.payload)
-        } 
+        }
     }
 })
 

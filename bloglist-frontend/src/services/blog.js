@@ -37,4 +37,8 @@ const likeBlog = async (blog, user) => {
 const deleteBlog = async (blog) => {
     await axios.delete(`${baseUrl}/${blog.id}`)
 }
-export default { getAll, addBlog, likeBlog, deleteBlog }
+
+const commentBlog = async (id ,comment) => {
+    return await axios.post(`${baseUrl}/${id}/comments`, { comment })
+}
+export default { getAll, addBlog, likeBlog, deleteBlog, commentBlog }

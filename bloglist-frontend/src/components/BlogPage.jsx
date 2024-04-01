@@ -3,9 +3,11 @@ import { useParams, Link } from "react-router-dom"
 import blogService from '../services/blog'
 import { updateBlogLike } from "../stores/blog"
 import { removeBlog } from "../stores/blog"
+import { useState, useEffect } from "react"
 
 const BlogPage = () => {
     const params = useParams()
+    const [comment, setComment] = useState('')
     const blog = useSelector(state => state.blog).find(blog => blog.id === params.id)
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
@@ -21,6 +23,9 @@ const BlogPage = () => {
             </>
 
         )
+    }
+    const addComment = () => {
+        blogService.commentBlog(blog.id, comment)
     }
     const deleteBlog = () => {
         try {
@@ -38,8 +43,9 @@ const BlogPage = () => {
             <p>added by {blog.user.name}</p>
             {user.id == blog.user.id ? <button onClick={deleteBlog}>Delete</button> : null}
             <h2>comments:</h2>
+            <input value={comment} onChange={() => setComment(event.target.value)}/><button onClick={addComment}>add comment</button>
             <li>
-                {blog.comments.map(comment => comment)}
+                {blog.comments.map(comment => <ul key={blog.id + comment}>{comment}</ul>)}
             </li>
         </>
     )
