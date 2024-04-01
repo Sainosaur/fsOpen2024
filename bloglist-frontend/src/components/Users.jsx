@@ -1,16 +1,17 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { setUsers, resetUsers } from "../stores/users"
+import { Link } from 'react-router-dom' 
 import userService from "../services/users"
 
 const RenderUser = ({user}) => {
     return (
-        <div>
+        <>
             <tr>
-                <td>{user.name}</td>
-                <td>{user.blogs.length}</td>
+                <td key={user.id}><Link to={`${user.id}`}>{user.name}</Link></td>
+                <td key={user.blogs.length}>{user.blogs.length}</td>
             </tr>
-        </div>
+        </>
     )
 }
 
@@ -24,14 +25,14 @@ const Users = () => {
     }, [])
     console.log(users)
     return (
-        <div>
+        <>
             <h1>Users</h1>
-            <th>
-                <td>User</td>
-                <td>Blogs Created</td>
-            </th>
+            <tr>
+                <th>User</th>
+                <th>Blogs Created</th>
+            </tr>
             {users ? users.map(user =><RenderUser user ={user} /> ) : null}
-        </div>
+        </>
     )
 }
 
