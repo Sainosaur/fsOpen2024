@@ -37,6 +37,10 @@ const BlogPage = () => {
             <p>{blog.likes} likes <button onClick={likeBlog}>like</button></p>
             <p>added by {blog.user.name}</p>
             {user.id == blog.user.id ? <button onClick={deleteBlog}>Delete</button> : null}
+            <h2>comments:</h2>
+            <li>
+                {blog.comments.map(comment => comment)}
+            </li>
         </>
     )
 }
