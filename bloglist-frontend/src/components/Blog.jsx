@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import BlogService from '../services/blogs'
+import BlogService from '../services/blog'
 import { useDispatch } from 'react-redux'
 import { removeBlog } from '../stores/blog'
 

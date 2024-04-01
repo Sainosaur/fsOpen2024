@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import Blog from '../components/Blog'
-import blogService from '../services/blogs'
+import blogService from '../services/blog'
 import NewBlog from './NewBlog'
 import VisibilityComponent from './Visibility'
 import { useDispatch, useSelector } from 'react-redux'
 import { SetNotification, ResetNotification } from '../stores/notification'
 import { setBlogs, addBlog, updateBlogLike } from '../stores/blog'
-import { logOut} from '../stores/user'
 
 const RenderBlog = () => {
     const user = useSelector(state => state.user)
@@ -42,10 +41,6 @@ const RenderBlog = () => {
     return (
         <>
             <div>
-                <p>{`${String(user.name)} logged in`}<button onClick={() => {
-                    // reloads the window to repeat the user checking process and return to a login screen
-                    dispatch(logOut())
-                }}>Log Out</button></p>
                 <VisibilityComponent invisiblemessage="new blog" visiblemessage="cancel" ref={GlobalToggle}>
                     <NewBlog user={user} selfToggle={GlobalToggle} addBlog={onAddBlog} />
                 </VisibilityComponent>
