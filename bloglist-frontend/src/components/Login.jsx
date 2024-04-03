@@ -4,6 +4,7 @@ import Notification from './Notification'
 import { useState } from 'react'
 import { ResetNotification, SetNotification } from '../stores/notification'
 import { setUser } from '../stores/user'
+import { Button, Input } from '@nextui-org/react'
 
 const Login = () => {
     const [usr, setUsr] = useState('')
@@ -23,7 +24,7 @@ const Login = () => {
         }).catch(
             // waits for half a second before setting error message to ensure the request has actually failed
             setTimeout(() => {
-                dispatch(SetNotification({ message: 'wrong username or password', color: 'red'}))
+                dispatch(SetNotification({ message: 'wrong username or password', color: 'danger'}))
             }, '500'),
             setTimeout(() => {
                 dispatch(ResetNotification())
@@ -34,9 +35,9 @@ const Login = () => {
         <>
             <Notification/>
             <div>
-                <p>username: <input value={usr} onChange={() => updateUsr(event)} className='UserField' /></p>
-                <p>password: <input value={pwd} onChange={() => updatePwd(event)} type="password" className='PwdField'/></p>
-                <button onClick={() => obtainToken()}>Submit</button>
+                <Input variant='bordered' value={usr} onChange={() => updateUsr(event)} label="Username" className='UserField' />
+                <Input variant='bordered' value={pwd} onChange={() => updatePwd(event)} type="password" label="Password" className='PwdField'/>
+                <Button color='primary' onClick={() => obtainToken()}>Submit</Button>
             </div>
         </>
     )

@@ -7,6 +7,7 @@ import userReducer from './stores/user'
 import usersReducer from './stores/users'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { NextUIProvider } from '@nextui-org/react'
 
 
 const store = configureStore({
@@ -19,10 +20,12 @@ const store = configureStore({
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <Router>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </Router>
+    <NextUIProvider>
+        <Router>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </Router>
+    </NextUIProvider>
 
 )

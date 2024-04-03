@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Notification from './Notification'
+import { Button, Input } from '@nextui-org/react'
 
 const NewBlog = (props) => {
     const [title, setTitle] = useState('')
@@ -10,13 +11,12 @@ const NewBlog = (props) => {
         <>
             <Notification />
             <div>
-                <h2>Create new:</h2>
-                <p>title: <input value={title} onChange={({ target }) => setTitle(target.value)} className='Title'></input></p>
-                <p>author: <input value={author} onChange={({ target }) => setAuthor(target.value)} className='Author'></input></p>
-                <p>url: <input value={url} onChange={({ target }) => setUrl(target.value)} className='Url'></input></p>
-                <button onClick={() => {
-                    props.addBlog(title, author, url, props.user, props.selfToggle.current.toggleVisibility)
-                }}>create</button>
+                <Input value={title} label='Title' onChange={({ target }) => setTitle(target.value)} className='Title' />
+                <Input value={author} label='Author' onChange={({ target }) => setAuthor(target.value)} className='Author' />
+                <Input value={url} label='URL' onChange={({ target }) => setUrl(target.value)} className='Url' />
+                <Button color='primary' variant='bordered'  onClick={() => {
+                    props.addBlog(title, author, url, props.user)
+                }}>Create</Button>
             </div>
         </>
     )

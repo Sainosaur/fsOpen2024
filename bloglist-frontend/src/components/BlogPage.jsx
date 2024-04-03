@@ -4,6 +4,7 @@ import blogService from '../services/blog'
 import { updateBlogLike } from "../stores/blog"
 import { removeBlog } from "../stores/blog"
 import { useState, useEffect } from "react"
+import { Button, Card, Input, CardBody, Tabs, Tab, ButtonGroup } from "@nextui-org/react"
 
 const BlogPage = () => {
     const params = useParams()
@@ -37,16 +38,33 @@ const BlogPage = () => {
     }
     return (
         <>
-            <h1>{blog.title}</h1>
-            <a href={blog.url}>{blog.url}</a>
-            <p>{blog.likes} likes <button onClick={likeBlog}>like</button></p>
-            <p>added by {blog.user.name}</p>
-            {user.id == blog.user.id ? <button onClick={deleteBlog}>Delete</button> : null}
-            <h2>comments:</h2>
-            <input value={comment} onChange={() => setComment(event.target.value)}/><button onClick={addComment}>add comment</button>
-            <li>
-                {blog.comments.map(comment => <ul key={blog.id + comment}>{comment}</ul>)}
-            </li>
+        <Card>
+            <CardBody>
+                <Tabs>
+                    <Tab title="Blog">
+                        <h1>{blog.title}</h1>
+                        <p>{blog.likes} likes </p>
+                    </Tab>
+                    <Tab title="URL">
+                        <a href={blog.url}>{blog.url}</a>
+                    </Tab>
+                    <Tab title="User">
+                        <p>Blog added by {blog.user.name}</p>
+                    </Tab>
+                </Tabs>
+                <ButtonGroup>
+                {user.id == blog.user.id ? <Button color="danger" variant="ghost" onClick={deleteBlog}>Delete</Button> : null}
+                <Button variant="bordered" color="success" onClick={likeBlog}>Like Blog</Button>
+                </ButtonGroup>
+                <Input value={comment} label="Comment..." onChange={() => setComment(event.target.value)}/><Button color="primary" variant="flat"  onClick={addComment}>add comment</Button>
+            </CardBody>
+        </Card>
+            <h1>Comments:</h1>
+            <Card>
+                    {blog.comments.map(comment => <CardBody>
+                            <p key={blog.id + comment}>{comment}</p>
+                        </CardBody>)}
+            </Card>
         </>
     )
 }

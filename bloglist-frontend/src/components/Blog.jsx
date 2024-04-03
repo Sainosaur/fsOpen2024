@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import {Card, CardBody} from "@nextui-org/react"
 
 const Blog = ({ blog }) => {
     const blogStyle = {
@@ -10,9 +11,11 @@ const Blog = ({ blog }) => {
         marginBottom: 5
     }
     return (
-        <div style={blogStyle}>
-            <Link to={`/blogs/${blog.id}`}>{blog.title} {blog.author}</Link>
-        </div>
+        <Card >
+            <CardBody>
+                <Link to={`/blogs/${blog.id}`}>{blog.title} {blog.author}</Link>
+            </CardBody>
+        </Card>
     )
 }
 
