@@ -3,17 +3,12 @@ import { GET_BOOKS } from '../queries'
 
 const Books = (props) => {
   const result = useQuery(GET_BOOKS)
-  if (!props.show) {
-    return null
-  }
-
-  const books = result.data.allBooks
   if (result.loading) {
     return (
       <h1> Loading... </h1>
     )
   }
-
+  const books = result.data.allBooks
   return (
     <div>
       <h2>books</h2>
