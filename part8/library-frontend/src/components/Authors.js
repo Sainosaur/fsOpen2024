@@ -5,7 +5,6 @@ const Authors = (props) => {
   if (!props.show) {
     return null
   }
-  console.log(result)
   if (result.loading) {
     return (
       <div>
