@@ -18,10 +18,6 @@ const App = () => {
         <Route path='/books' element={<Books />} />
         <Route path='/newbook' element={<NewBook/>} />
       </Routes>
-
-
-
-
     </div>
   )
 }
