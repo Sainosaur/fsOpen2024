@@ -3,13 +3,16 @@ import { GET_BOOKS, GET_GENRE_BOOKS } from '../queries'
 import { useState } from 'react'
 
 const Books = (props) => {
-  const result = useQuery(GET_BOOKS)
+  const result = useQuery(GET_BOOKS, {
+    fetchPolicy: 'network-only'
+  })
   const [filter, setFilter]  = useState('')
   console.log(filter)
   const filteredResult = useQuery(GET_GENRE_BOOKS, {
     variables: {
         Genre: filter
-    }
+    },
+    fetchPolicy: 'network-only'
 })
   if (result.loading || filteredResult.loading) {
     return (

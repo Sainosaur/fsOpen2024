@@ -5,7 +5,7 @@ const RenderBooks = ({favGenre}) => {
     const listResult = useQuery(GET_GENRE_BOOKS, {
         variables: {
             Genre: favGenre
-        }
+        }, fetchPolicy: 'network-only'
     })
     if (listResult.loading) {
         return (<h1>Loading... </h1>)
