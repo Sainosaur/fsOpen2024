@@ -41,3 +41,10 @@ mutation EditAuthor($Name: String!, $SetBornYear:Int!) {
     }
 }
 `
+export const LOGIN = gql`
+mutation($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      value
+    }
+  }
+`
