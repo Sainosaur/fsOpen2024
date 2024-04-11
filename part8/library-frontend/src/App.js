@@ -4,6 +4,7 @@ import Books from './components/Books'
 import NewBook from './components/NewBook'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import LoginForm from './components/Login'
+import Recommended from './components/Recommended'
 
 const App = () => {
   const navigate = useNavigate()
@@ -16,6 +17,7 @@ const App = () => {
         <button onClick={() => navigate('/books')}>books</button>
         { token ? <>
         <button onClick={() => navigate('/newbook')}>add book</button>
+        <button onClick={() => navigate('/recommended')} >Recommended</button>
         <button onClick={() => {
           setToken(null)
           localStorage.user_token = null
@@ -27,6 +29,7 @@ const App = () => {
         <Route path='/books' element={<Books />} />
         <Route path='/newbook' element={<NewBook/>} />
         <Route path='/login' element={<LoginForm setToken={setToken} />} />
+        <Route path='/recommended' element={<Recommended />} />
       </Routes>
     </div>
   )
