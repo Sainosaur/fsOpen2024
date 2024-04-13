@@ -70,3 +70,14 @@ mutation($username: String!, $password: String!) {
     }
   }
 `
+
+export const SUB_BOOK_ADDED = gql`
+subscription {
+    bookAdded {
+        title
+        author {
+            name
+        }
+    }
+}
+`

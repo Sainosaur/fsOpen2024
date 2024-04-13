@@ -7,7 +7,6 @@ const Books = (props) => {
     fetchPolicy: 'network-only'
   })
   const [filter, setFilter]  = useState('')
-  console.log(filter)
   const filteredResult = useQuery(GET_GENRE_BOOKS, {
     variables: {
         Genre: filter
@@ -21,7 +20,6 @@ const Books = (props) => {
   }
   const books = result.data.allBooks
   const filteredBooks = filteredResult.data.allBooks
-  console.log(filteredBooks)
   const renderedBooks = filter === '' ? books : filteredBooks
   const allGenres = [].concat(...books.map(book => book.genres)).filter((genre, index, array) => array.indexOf(genre) === index)
   return (

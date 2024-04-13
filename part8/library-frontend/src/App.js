@@ -5,9 +5,27 @@ import NewBook from './components/NewBook'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import LoginForm from './components/Login'
 import Recommended from './components/Recommended'
+import { SUB_BOOK_ADDED } from './queries'
+import { useSubscription } from '@apollo/client'
+import Notification from './components/Notification'
+import { useDispatch } from 'react-redux'
+import { resetNotification, setNotification } from './stores/Notification'
 
 const App = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+  
+  useSubscription(SUB_BOOK_ADDED, {
+    onData: ({ data }) => {
+      if(!data.loading) {
+        const notification = `${data.data.bookAdded.title} by ${data.data.bookAdded.author.name} added!`
+        
+        dispatch(setNotification(notification))
+        setTimeout( () => dispatch(resetNotification()), '5000')
+      }
+
+    }
+  })
   const [token, setToken] = useState(localStorage.user_token)
 
   return (
@@ -24,6 +42,7 @@ const App = () => {
         }}>Log Out</button>
         </> : <button onClick={() => navigate('/login')}>Login</button>}
       </div>
+      <Notification />
       <Routes>
         <Route path='/' element={<Authors />} />
         <Route path='/books' element={<Books />} />
