@@ -10,22 +10,23 @@ import { useSubscription } from '@apollo/client'
 import Notification from './components/Notification'
 import { useDispatch } from 'react-redux'
 import { resetNotification, setNotification } from './stores/Notification'
+import updateCache from './helper/updateCache'
 
 const App = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  
+
   useSubscription(SUB_BOOK_ADDED, {
-    onData: ({ data }) => {
+    onData: ({ data, client }) => {
       if(!data.loading) {
         const notification = `${data.data.bookAdded.title} by ${data.data.bookAdded.author.name} added!`
-        
         dispatch(setNotification(notification))
         setTimeout( () => dispatch(resetNotification()), '5000')
+        updateCache(data, client)
       }
-
     }
   })
+
   const [token, setToken] = useState(localStorage.user_token)
 
   return (
@@ -38,7 +39,7 @@ const App = () => {
         <button onClick={() => navigate('/recommended')} >Recommended</button>
         <button onClick={() => {
           setToken(null)
-          localStorage.user_token = null
+          localStorage.removeItem('user_token')
         }}>Log Out</button>
         </> : <button onClick={() => navigate('/login')}>Login</button>}
       </div>

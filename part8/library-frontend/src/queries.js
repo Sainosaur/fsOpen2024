@@ -78,6 +78,8 @@ subscription {
         author {
             name
         }
+        published
+        genres
     }
 }
 `
